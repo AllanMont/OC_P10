@@ -41,22 +41,19 @@ jobs:
   front-end:
     name: FRONT | Analyze with SonarQube
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./front
+    strategy:
+      matrix:
+        node-version: [16.x]
         
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v3
-        with: 
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=AllanMont_OC_P10
+      - name: Analyze with SonarCloud
+        uses: sonarsource/sonarcloud-github-action@v2.3.0 # Ex: v2.1.0, See the latest version at https://github.com/marketplace/actions/sonarcloud-scan
+        with:
+          projectBaseDir: front/
+          args: >
+            -Dsonar.organization=my-OC_P10
+            -Dsonar.projectKey=my-oc-p10
+            -Dsonar.verbose=true
