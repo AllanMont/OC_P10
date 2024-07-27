@@ -6,7 +6,7 @@ on:
 
 jobs:
   back-end:
-    name: Build and analyze
+    name: BACK | Analyze with SonarQube
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -39,7 +39,7 @@ jobs:
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=AllanMont_OC_P10
 
   front-end:
-    name: Build and analyze
+    name: FRONT | Analyze with SonarQube
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -55,3 +55,8 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=AllanMont_OC_P10
