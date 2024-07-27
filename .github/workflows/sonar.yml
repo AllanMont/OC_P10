@@ -54,8 +54,8 @@ jobs:
         with:
           projectBaseDir: front/
           args: >
-            -Dsonar.organization=my-OC_P10
-            -Dsonar.projectKey=my-oc-p10
+            -Dsonar.organization=OC_P10
+            -Dsonar.projectKey=oc-p10
             -Dsonar.verbose=true
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
