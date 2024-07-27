@@ -2,15 +2,16 @@ name: SonarQube
 
 on:
   push:
-    branches:
-      - master
-      - dev
-      
+    branches: [ master,dev/ ]
+
 jobs:
   build:
     name: Build and analyze
     runs-on: ubuntu-latest
-    
+    defaults:
+      run:
+        working-directory: ./back
+        
     steps:
       - uses: actions/checkout@v4
         with:
