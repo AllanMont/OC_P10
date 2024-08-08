@@ -36,7 +36,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=AllanMont_OC_P10
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=p10-bobapp_back
 
   front-end:
     name: FRONT | Analyze with SonarQube
@@ -54,8 +54,8 @@ jobs:
         with:
           projectBaseDir: front/
           args: >
-            -Dsonar.organization=OC_P10
-            -Dsonar.projectKey=oc-p10
+            -Dsonar.organization=p10-bobapp
+            -Dsonar.projectKey=p10-bobapp_front
             -Dsonar.verbose=true
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
